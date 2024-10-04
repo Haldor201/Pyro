@@ -1,4 +1,3 @@
-# saved as client.py
 import Pyro4
 import sys
 
@@ -8,17 +7,13 @@ except ValueError:
     print("Ingresa un número válido.")
     sys.exit()
 
-# Configurar el nombre del servidor
-Pyro4.config.NS_HOST = "pyro-euq6.onrender.com"  # Cambia esto por la URL de tu naming server
-Pyro4.config.NS_PORT = 9090  # Asegúrate de que este puerto sea el correcto
+# Usa el URI del servidor de nombres en Render
+# Asegúrate de cambiar 'pyro-euq6.onrender.com' al nombre correcto de tu servicio
+getFactClass = Pyro4.Proxy("PYRONAME:example.fact@pyro-euq6.onrender.com:9090")
 
 try:
-    getFactClass = Pyro4.Proxy("PYRONAME:example.fact")  # Buscar el objeto remoto
     print(getFactClass.get_facto(num))
 except Pyro4.errors.CommunicationError as e:
-    print(f"Error de comunicación: {e}")
-except Pyro4.errors.NamingError as e:
-    print(f"Error de nombres: {e}")
+    print("Error de comunicación:", e)
 except Exception as e:
-    print(f"Se produjo un error: {e}")
-
+    print("Ocurrió un error:", e)

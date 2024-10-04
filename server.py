@@ -25,5 +25,6 @@ ns = Pyro4.locateNS()
 uri = daemon.register(Facto)
 ns.register("example.fact", uri)
 
+print(f"Object registered with URI: {uri}")  # Para depuración
 print(f"Ready. Listening on port {port}")
 daemon.requestLoop()
